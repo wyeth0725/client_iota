@@ -1,0 +1,9 @@
+*.jpg
+*.jpeg
+*.png
+test*
+*.txt
+*log*
+*buildozer*
+bin/
+.seed

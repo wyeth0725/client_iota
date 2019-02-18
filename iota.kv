@@ -1,0 +1,207 @@
+IotaWidget:
+
+<IotaWidget>:
+    orientation: "vertical"
+    status: status_text
+
+    Image:
+        source: root.source
+
+    Label:
+        size_hint_y: 0.1
+        id: status_text
+        text: ""
+        center: root.center
+        color: 1,0,0,1
+    BoxLayout:
+        orientation: "horizontal"
+        size: root.size
+        size_hint_y: 0.3
+
+        Button:
+            text: "choose picture"
+            on_release: root.choose_picture()
+        Button:
+            text: "Upload picture"
+            on_release: root.prepare_upload()
+        Button:
+            text: "resister edit program"
+            on_release: root.resister_program()
+        Button:
+            text: "run edit"
+            on_release: root.run_edit()
+        Button:
+            text: "config"
+            on_release: root.choose_ip()
+
+<TagPopup>
+    orientation: "vertical"
+    Image:
+        source: root.selection
+
+    TextInput:
+        size_hint_y: 0.2
+        multiline: False
+        on_text_validate: root.tag(self.text)
+    Button:
+        size_hint_y: 0.2
+        text: "Confirm"
+        on_release: root.validate(root.selection)
+
+<Confirm_source>
+    orientation: "vertical"
+    Label:
+        text: root.text
+        center: root.center
+        color: 1,0,0,1
+    Button:
+        text: "upload"
+        on_release: root.upload()
+    Button:
+        text: "cancel"
+        on_release: root.cancel()
+
+<ConfirmPopup_trunk>
+    orientation: "vertical"
+    BoxLayout:
+        orientation: "vertical"
+        Image:
+            size_hint_y: 0.7
+            opacity: 1
+            texture: root.pic.texture
+    Label:
+        size_hint_y: 0.1
+        text: root.text
+    Button:
+        text: "approve"
+        size_hint_y: 0.2
+        on_release: root.y_a(root.approve)
+    Button:
+        text: "no"
+        size_hint_y: 0.2
+        on_release: root.n_a(root.approve)
+
+<ConfirmPopup_branch>
+    orientation: "vertical"
+    BoxLayout:
+        orientation: "vertical"
+        Image:
+            size_hint_y: 0.7
+            opacity: 1
+            texture: root.pic.texture
+        Label:
+            size_hint_y: 0.1
+            text: root.text
+        Button:
+            text: "approve"
+            size_hint_y: 0.2
+            on_release: root.y_a(root.approve)
+        Button:
+            text: "no"
+            size_hint_y: 0.2
+            on_release: root.n_a(root.approve)
+
+<IpPopup>
+    orientation: "vertical"
+    Label:
+        size_hint: 1, 0.9
+        text: root.text
+
+    TextInput:
+        text: root.seed
+        size_hint_y: 0.2
+        multiline: False
+        on_text_validate: root.input_seed(self.text)
+
+    BoxLayout:
+        size_hint: 1, 0.1
+        orientation: "horizontal"
+        Button:
+            size_hint: 0.3, 1
+            text:"IP1: 163.225.223.80"
+            on_release: root.ip("http://163.225.223.50:14265")
+        Button:
+            size_hint: 0.3, 1
+            text:"IP2: 163.225.223.90"
+            on_release: root.ip("http://163.225.223.51:14265")
+        Button:
+            size_hint: 0.3, 1
+            text:"IP3: 163.225.223.86"
+            on_release: root.ip("http://163.225.223.52:14265")
+
+<HashPopup>
+    orientation: "vertical"
+
+    Label:
+        size_hint_y: 0.1
+        text: "Input hash"
+        center: root.center
+    TextInput:
+        id: hash
+        size_hint_y: 0.1
+        multiline: False
+    Label:
+        size_hint_y: 0.1
+        text: "Input picture path"
+        center: root.center
+    TextInput:
+        id: path
+        size_hint_y: 0.1
+        multiline: False
+    Label:
+        size_hint_y: 0.1
+        text: "Input args"
+        center: root.center
+    TextInput:
+        id: argment
+        size_hint_y: 0.1
+        multiline: False
+    Button:
+        size_hint_y: 0.1
+        text: "submit"
+        on_release: root.validate(hash.text, path.text, argment.text)
+    Button:
+        size_hint_y: 0.1
+        text: "cancel"
+        on_release: root.cancel()
+
+
+<PopupChooseFile>:
+    canvas:
+        Color:
+            rgba: 0,0,0.4,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    orientation: "vertical"
+
+    FileChooserIconView:
+        size_hint: 1, 0.9
+        path: root.current_dir
+        on_submit: root.select(self.selection[0])
+    BoxLayout:
+        size_hint: 1, 0.1
+        Button:
+            text: "Cancel"
+            background_color: 0, 0.5, 1, 1
+            on_release: root.cancel()
+
+<PopupSourceFile>
+    canvas:
+        Color:
+            rgba: 0,0,0.4,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    orientation: "vertical"
+
+    FileChooserIconView:
+        size_hint: 1,0.9
+        path: root.current_dir
+        on_submit: root.select(self.selection[0])
+    BoxLayout:
+        size_hint: 1,0.1
+        Button:
+            text: "Cancel"
+            background_color: 0, 0.5, 1, 1
+            on_release: root.cancel()
